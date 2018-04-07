@@ -60,15 +60,14 @@
   <ItemGroup>
     <Compile Include="IHiChatService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HiChatService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ALCS.HiChat.Models\ALCS.HiChat.Cross.Models.csproj">
+    <ProjectReference Include="..\ALCS.HiChat.Models\ALCS.HiChat.Models.csproj">
       <Project>{a28e4d3e-3d71-45ba-a845-68779e8c6005}</Project>
-      <Name>ALCS.HiChat.Cross.Models</Name>
+      <Name>ALCS.HiChat.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

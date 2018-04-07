@@ -5,9 +5,10 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
-using ALCS.HiChat.Cross.Models;
+using ALCS.HiChat.Models;
+using ALCS.HiChat.Service;
 
-namespace ALCS.HiChat.Service
+namespace ALCS.HiChat.Server
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, 
         ConcurrencyMode = ConcurrencyMode.Multiple)]

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using ALCS.HiChat.Cross.Models;
+using ALCS.HiChat.Models;
 
 namespace ALCS.HiChat.Service
 {

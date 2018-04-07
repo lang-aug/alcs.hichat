@@ -7,8 +7,8 @@
     <ProjectGuid>{C056096B-3046-4ADD-86BF-B44C00F23CD3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ALCS.HiChat.Server.Standalone</RootNamespace>
-    <AssemblyName>ALCS.HiChat.Server.Standalone</AssemblyName>
+    <RootNamespace>ALCS.HiChat.Server</RootNamespace>
+    <AssemblyName>ALCS.HiChat.Server</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -61,7 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="HiChatService.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +71,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ALCS.HiChat.Models\ALCS.HiChat.Cross.Models.csproj">
+    <ProjectReference Include="..\ALCS.HiChat.Models\ALCS.HiChat.Models.csproj">
       <Project>{a28e4d3e-3d71-45ba-a845-68779e8c6005}</Project>
-      <Name>ALCS.HiChat.Cross.Models</Name>
+      <Name>ALCS.HiChat.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\ALCS.HiChat.Service\ALCS.HiChat.Service.csproj">
       <Project>{f3d9a7fa-9f6e-4674-bdf3-fca82a83cca4}</Project>

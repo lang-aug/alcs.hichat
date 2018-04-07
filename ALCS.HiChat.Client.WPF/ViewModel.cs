@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
-using ALCS.HiChat.Cross.Models;
+using ALCS.HiChat.Models;
 using ALCS.HiChat.Service;
 using System.ComponentModel;
 

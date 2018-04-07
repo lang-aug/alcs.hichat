@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Cross.Models", "ALCS.HiChat.Models\ALCS.HiChat.Cross.Models.csproj", "{A28E4D3E-3D71-45BA-A845-68779E8C6005}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Cross.Service", "ALCS.HiChat.Cross.Service\ALCS.HiChat.Cross.Service.csproj", "{10AE2532-6733-437D-91A9-598D0924D3D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Models", "ALCS.HiChat.Models\ALCS.HiChat.Models.csproj", "{A28E4D3E-3D71-45BA-A845-68779E8C6005}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Service", "ALCS.HiChat.Service\ALCS.HiChat.Service.csproj", "{F3D9A7FA-9F6E-4674-BDF3-FCA82A83CCA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server.Standalone", "ALCS.HiChat.Server.Standalone\ALCS.HiChat.Server.Standalone.csproj", "{C056096B-3046-4ADD-86BF-B44C00F23CD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server", "ALCS.HiChat.Server.Standalone\ALCS.HiChat.Server.csproj", "{C056096B-3046-4ADD-86BF-B44C00F23CD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.Test", "ALCS.HiChat.Client.Test\ALCS.HiChat.Client.Test.csproj", "{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.Console", "ALCS.HiChat.Client.Test\ALCS.HiChat.Client.Console.csproj", "{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.WPF", "ALCS.HiChat.Client.WPF\ALCS.HiChat.Client.WPF.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
 EndProject
@@ -25,10 +23,6 @@ Global
 		{A28E4D3E-3D71-45BA-A845-68779E8C6005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A28E4D3E-3D71-45BA-A845-68779E8C6005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A28E4D3E-3D71-45BA-A845-68779E8C6005}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10AE2532-6733-437D-91A9-598D0924D3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10AE2532-6733-437D-91A9-598D0924D3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10AE2532-6733-437D-91A9-598D0924D3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10AE2532-6733-437D-91A9-598D0924D3D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3D9A7FA-9F6E-4674-BDF3-FCA82A83CCA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3D9A7FA-9F6E-4674-BDF3-FCA82A83CCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D9A7FA-9F6E-4674-BDF3-FCA82A83CCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -7,9 +7,9 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using ALCS.HiChat.Service;
 
-namespace ALCS.HiChat.Server.Standalone
+namespace ALCS.HiChat.Server
 {
-    class Program
+    class Server
     {
         static void Main(string[] args)
         {

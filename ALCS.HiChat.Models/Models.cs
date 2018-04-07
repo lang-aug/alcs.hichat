@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ALCS.HiChat.Cross.Models
+namespace ALCS.HiChat.Models
 {
     public class User : IEquatable<User>
     {
