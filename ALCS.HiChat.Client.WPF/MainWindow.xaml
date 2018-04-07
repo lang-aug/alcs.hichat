@@ -23,7 +23,7 @@
                 <TextBox Text="{Binding Username}"/>
             </DockPanel>
 
-            <Button Content="Connect" IsEnabled="{Binding IsNotConnected}">
+            <Button Content="Connect">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="TryConnect" />
@@ -33,7 +33,7 @@
 
             <TextBox MinHeight="100" Text="{Binding IncomingMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <DockPanel>
-                <Button Width="50" DockPanel.Dock="Right" Content="Send" IsEnabled="{Binding IsConnected}">
+                <Button Width="50" DockPanel.Dock="Right" Content="Send">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <ei:CallMethodAction TargetObject="{Binding}" MethodName="PublishMessage" />

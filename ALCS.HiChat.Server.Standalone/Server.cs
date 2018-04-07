@@ -19,7 +19,6 @@ namespace ALCS.HiChat.Server
                 {
                     serviceHost.Open();
                     Console.WriteLine("Service running");
-                    Console.WriteLine();
                     Console.ReadLine();
                 }
                 catch (TimeoutException timeoutException)
