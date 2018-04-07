@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="08312e59-60ea-4036-b3a7-431939ab9f61" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/ALCS.HiChat.Cross.Service/Service1/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="252a78b1-04ea-4e8b-9322-e5e43f8ede85" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ALCS.HiChat.Cross.Service/Service1/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="e06682d4-bb20-4974-999f-b80e52fcb7cd" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ALCS.HiChat.Cross.Service/Service1/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="11202014-ea47-4db1-9495-aad393b3a4a9" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ALCS.HiChat.Cross.Service/Service1/mex" />
+    <MetadataFile FileName="ALCS.HiChat.Cross.Models.xsd" MetadataType="Schema" ID="5e3cffb3-16ec-4878-ad91-bd977361c0d2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ALCS.HiChat.Cross.Service/Service1/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
