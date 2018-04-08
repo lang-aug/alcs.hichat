@@ -75,17 +75,6 @@ namespace ALCS.HiChat.Server
             Console.WriteLine("From user {0} received message {1}", message.Sender.Name, message.Content);
             lock (connectedClients)
             {
-                var context = OperationContext.Current;
-                if (context != null)
-                {
-                    var thisCallback = OperationContext.Current.GetCallbackChannel<IHiChatServiceCallback>();
-                    var matchingCallbacks = connectedClients.Where(p => p.Value == thisCallback).Count();
-                    Console.WriteLine("Matching callbacks {0}", matchingCallbacks);
-                }
-                else
-                {
-                    Console.WriteLine("No context");
-                }
                 List<User> invalidClients = new List<User>();
                 foreach (var item in connectedClients)
                 {

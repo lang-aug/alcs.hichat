@@ -8,6 +8,11 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate x:Key="MessageDataTemplate">
+            <TextBlock Text="{Binding Content}"></TextBlock>
+        </DataTemplate>
+    </Window.Resources>
     <Grid xmlns:vm="clr-namespace:ALCS.HiChat.Client.ViewModels">
         <Grid.DataContext>
             <vm:MainWindowViewModel />
@@ -31,7 +36,11 @@
                 </i:Interaction.Triggers> -->
             </Button>
 
-            <TextBox MinHeight="100" Text="{Binding IncomingMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+<!--            <TextBox MinHeight="100" Text="{Binding IncomingMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/> -->
+            <ItemsControl MinHeight="100" 
+                          ItemsSource="{Binding MessageBacklog}" 
+                          ItemTemplate="{DynamicResource MessageDataTemplate}">
+            </ItemsControl>
             <DockPanel>
                 <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}">
 <!--                    <i:Interaction.Triggers>

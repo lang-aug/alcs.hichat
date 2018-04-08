@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 using ALCS.HiChat.Models;
 using ALCS.HiChat.Service;
 using ALCS.HiChat.Client.Commands;
@@ -18,6 +19,7 @@ namespace ALCS.HiChat.Client.ViewModels
 
         public MainWindowViewModel()
         {
+            MessageBacklog = new ObservableCollection<Message>();
         }
 
         #region Commands
@@ -72,7 +74,7 @@ namespace ALCS.HiChat.Client.ViewModels
 
         public void RouteMessage(Message message)
         {
-            IncomingMessage = message.Content;
+            MessageBacklog.Add(message);
         }
 
         private ICommand publishMessageCommand;
@@ -121,26 +123,13 @@ namespace ALCS.HiChat.Client.ViewModels
 
         private IHiChatService channel;
 
-        private string incomingMessage;
+        public ObservableCollection<Message> MessageBacklog { get; set; }
 
         public string OutgoingMessage 
         {
             get; set;
         }
-
-        public string IncomingMessage
-        {
-            get
-            {
-                return incomingMessage;
-            }
-            private set
-            {
-                incomingMessage = value;
-                OnPropertyChanged("IncomingMessage");
-            }
-        }
-
+        
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
