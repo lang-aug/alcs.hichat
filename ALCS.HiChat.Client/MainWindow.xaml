@@ -31,15 +31,14 @@
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
-                <Button DockPanel.Dock="Right" Width="50" Content="Toggle" Command="{Binding ToggleConnectCommand}" 
-                        IsEnabled="{Binding IsToggleAllowed}"/>
+                <Button DockPanel.Dock="Right" Width="50" Content="Toggle" Command="{Binding ToggleConnectCommand}" />
                 <TextBox IsEnabled="{Binding IsNotConnected}" Text="{Binding Username}"/>
             </DockPanel>
 
             <Label Background="LightGray" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
             <DockPanel DockPanel.Dock="Bottom">
                 <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}" />
-                <TextBox Text="{Binding OutgoingMessage}" />
+                <TextBox IsEnabled="{Binding IsConnected}" Text="{Binding OutgoingMessage}" />
             </DockPanel>
 
             <ItemsControl DockPanel.Dock="Top" MinHeight="180"

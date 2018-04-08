@@ -31,30 +31,29 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 if (toggleConnectCommand == null)
                 {
-                    toggleConnectCommand = new RelayCommand((o) => ToggleConnect(o),
-                        (o) => IsToggleAllowed);
+                    toggleConnectCommand = new RelayCommandAsync(() => ToggleConnectAsync());
                 }
                 return toggleConnectCommand;
             }
         }
-        private void ToggleConnect(object o)
+        private async Task ToggleConnectAsync()
         {
             if (IsConnected)
             {
-                Disconnect();
+                await DisconnectAsync().ConfigureAwait(false);
             }
             else
             {
-                TryConnect();
+                await TryConnectAsync().ConfigureAwait(false);
             }
         }
         #endregion
 
-        private void TryConnect()
+        private async Task TryConnectAsync()
         {
             if (IsConnected)
             {
-                Disconnect();
+                await DisconnectAsync().ConfigureAwait(false);
             }
 
             if (string.IsNullOrEmpty(Username) ||
@@ -66,7 +65,6 @@ namespace ALCS.HiChat.Client.ViewModels
 
             try
             {
-                IsToggleAllowed = false;
                 StatusMessage = "Connecting...";
                 var binding = new WSDualHttpBinding();
                 var endpoint = new EndpointAddress(ServerAddress);
@@ -75,25 +73,26 @@ namespace ALCS.HiChat.Client.ViewModels
                     binding, endpoint);
                 channel = channelFactory.CreateChannel();
                 User user = new User { Name = Username };
-                bool hasConnected = channel.Connect(user);
+                bool hasConnected = await Task.Run(() => channel.Connect(user)).ConfigureAwait(false);
                 if (!hasConnected)
                 {
                     StatusMessage = "Could not connect, server refused connection";
                     channel = null;
-                    return;
                 }
-                StatusMessage = "Connection successful";
+                else
+                {
+                    StatusMessage = "Connection successful";
+                }
             }
             catch (Exception e)
             {
                 StatusMessage = $"Could not connect, exception: {e.Message}";
-                Disconnect();
+                await DisconnectAsync().ConfigureAwait(false);
             }
             finally
             {
                 OnPropertyChanged("IsConnected");
                 OnPropertyChanged("IsNotConnected");
-                IsToggleAllowed = true;
             }
         }
         
@@ -105,14 +104,14 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 if (publishMessageCommand == null)
                 {
-                    publishMessageCommand = new RelayCommand((o) => PublishMessage(),
+                    publishMessageCommand = new RelayCommandAsync(() => PublishMessageAsync(),
                     (o) => IsConnected);
                 }
                 return publishMessageCommand;
             }
         }
 
-        public void PublishMessage()
+        public async Task PublishMessageAsync()
         {
             if (!IsConnected)
             {
@@ -128,12 +127,12 @@ namespace ALCS.HiChat.Client.ViewModels
             var message = new Message { Sender = user, Content = OutgoingMessage };
             try
             {
-                channel.PublishMessage(message);
+                await Task.Run(() => channel.PublishMessage(message)).ConfigureAwait(false);
             }
             catch (Exception e)
             {
                 StatusMessage = $"Exception when publishing message: {e.Message}";
-                Disconnect();
+                await DisconnectAsync().ConfigureAwait(false);
             }
             finally
             {
@@ -201,20 +200,6 @@ namespace ALCS.HiChat.Client.ViewModels
         }
 
         public string Username { get; set; }
-
-        private bool isToggleAllowed = true;
-        public bool IsToggleAllowed
-        {
-            get
-            {
-                return isToggleAllowed;
-            }
-            set
-            {
-                isToggleAllowed = value;
-                OnPropertyChanged("IsToggleAllowed");
-            }
-        }
         #endregion
 
         protected void OnPropertyChanged(string name)
@@ -222,9 +207,8 @@ namespace ALCS.HiChat.Client.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void Disconnect()
+        public async Task DisconnectAsync()
         {
-            IsToggleAllowed = false;
             if (!IsConnected)
             {
                 return;
@@ -232,7 +216,7 @@ namespace ALCS.HiChat.Client.ViewModels
             var user = new User { Name = Username };
             try
             {
-                channel.Disconnect(user);
+                await Task.Run(() => channel.Disconnect(user)).ConfigureAwait(false);
                 StatusMessage = "Disconnected";
             }
             catch(Exception e)
@@ -244,7 +228,6 @@ namespace ALCS.HiChat.Client.ViewModels
                 channel = null;
                 OnPropertyChanged("IsConnected");
                 OnPropertyChanged("IsNotConnected");
-                IsToggleAllowed = true;
             }
         }
     }
