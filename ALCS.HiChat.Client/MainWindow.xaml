@@ -31,13 +31,27 @@
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
-                <Button DockPanel.Dock="Right" Width="50" Content="Toggle" Command="{Binding ToggleConnectCommand}" />
+                <Button DockPanel.Dock="Right" Width="70"  
+                        Command="{Binding ToggleConnectCommand}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                    <Setter Property="Content" Value="Disconnect" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                    <Setter Property="Content" Value="Connect" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <TextBox IsEnabled="{Binding IsNotConnected}" Text="{Binding Username}"/>
             </DockPanel>
 
             <Label Background="LightGray" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
             <DockPanel DockPanel.Dock="Bottom">
-                <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}" />
+                <Button Width="70" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}" />
                 <TextBox IsEnabled="{Binding IsConnected}" Text="{Binding OutgoingMessage}" />
             </DockPanel>
 
