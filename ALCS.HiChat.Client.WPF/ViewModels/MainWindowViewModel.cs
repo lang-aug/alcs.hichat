@@ -8,13 +8,13 @@ using ALCS.HiChat.Models;
 using ALCS.HiChat.Service;
 using System.ComponentModel;
 
-namespace ALCS.HiChat.Client.WPF
+namespace ALCS.HiChat.Client.ViewModels
 {
-    public class ViewModel : IHiChatServiceCallback, INotifyPropertyChanged
+    public class MainWindowViewModel : IHiChatServiceCallback, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ViewModel()
+        public MainWindowViewModel()
         {      
         }
         

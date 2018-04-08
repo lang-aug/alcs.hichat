@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server", "ALCS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.Console", "ALCS.HiChat.Client.Test\ALCS.HiChat.Client.Console.csproj", "{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.WPF", "ALCS.HiChat.Client.WPF\ALCS.HiChat.Client.WPF.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client", "ALCS.HiChat.Client.WPF\ALCS.HiChat.Client.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

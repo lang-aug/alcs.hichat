@@ -8,9 +8,9 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid xmlns:vm="clr-namespace:ALCS.HiChat.Client.WPF">
+    <Grid xmlns:vm="clr-namespace:ALCS.HiChat.Client.ViewModels">
         <Grid.DataContext>
-            <vm:ViewModel />
+            <vm:MainWindowViewModel />
         </Grid.DataContext>
         <StackPanel>
             <DockPanel>
