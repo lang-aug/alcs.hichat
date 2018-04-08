@@ -23,7 +23,7 @@ namespace ALCS.HiChat.Client.ViewModels
             StatusMessage = "Welcome to the HiChat application";
         }
 
-        #region Commands
+        #region TryConnect command
         private ICommand tryConnectCommand;
         public ICommand TryConnectCommand
         {
@@ -54,6 +54,7 @@ namespace ALCS.HiChat.Client.ViewModels
 
             try
             {
+                StatusMessage = "Connecting...";
                 var binding = new WSDualHttpBinding();
                 var endpoint = new EndpointAddress(ServerAddress);
                 var instanceContext = new InstanceContext(this);
@@ -69,21 +70,21 @@ namespace ALCS.HiChat.Client.ViewModels
                     return;
                 }
                 StatusMessage = "Connection successful";
-                return;
             }
             catch (Exception e)
             {
                 StatusMessage = $"Could not connect, exception: {e.Message}";
                 Disconnect();
-                return;
+            }
+            finally
+            {
+                OnPropertyChanged("IsConnected");
+                OnPropertyChanged("IsNotConnected");           
             }
         }
+        #endregion
 
-        public void RouteMessage(Message message)
-        {
-            MessageBacklog.Add(message);
-        }
-
+        #region PublishMessage command
         private ICommand publishMessageCommand;
         public ICommand PublishMessageCommand
         {
@@ -91,7 +92,7 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 if (publishMessageCommand == null)
                 {
-                    publishMessageCommand = new RelayCommand((o) => PublishMessage(), 
+                    publishMessageCommand = new RelayCommand((o) => PublishMessage(),
                     (o) => IsConnected);
                 }
                 return publishMessageCommand;
@@ -128,14 +129,19 @@ namespace ALCS.HiChat.Client.ViewModels
         }
         #endregion
 
-
+        #region Service callback
+        public void RouteMessage(Message message)
+        {
+            MessageBacklog.Add(message);
+        }
 
         private IHiChatService channel;
+        #endregion
 
+        #region MVVM Properties
         public ObservableCollection<Message> MessageBacklog { get; set; }
 
         private string outgoingMessage;
-
         public string OutgoingMessage 
         {
             get
@@ -149,13 +155,7 @@ namespace ALCS.HiChat.Client.ViewModels
             }
         }
         
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         private string statusMessage;
-
         public string StatusMessage
         {
             get
@@ -166,28 +166,6 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 statusMessage = value;
                 OnPropertyChanged("StatusMessage");
-            }
-        }
-
-        public void Disconnect()
-        {
-            if (!IsConnected)
-            {
-                return;
-            }
-            var user = new User { Name = Username };
-            try
-            {
-                channel.Disconnect(user);
-                StatusMessage = "Disconnected";
-            }
-            catch(Exception e)
-            {
-                StatusMessage = $"Exception occurred when disconnecting: {e.Message}";   
-            }
-            finally
-            {
-                channel = null;
             }
         }
 
@@ -210,5 +188,35 @@ namespace ALCS.HiChat.Client.ViewModels
         }
 
         public string Username { get; set; }
+        #endregion
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void Disconnect()
+        {
+            if (!IsConnected)
+            {
+                return;
+            }
+            var user = new User { Name = Username };
+            try
+            {
+                channel.Disconnect(user);
+                StatusMessage = "Disconnected";
+            }
+            catch(Exception e)
+            {
+                StatusMessage = $"Exception occurred when disconnecting: {e.Message}";   
+            }
+            finally
+            {
+                channel = null;
+                OnPropertyChanged("IsConnected");
+                OnPropertyChanged("IsNotConnected");
+            }
+        }
     }
 }

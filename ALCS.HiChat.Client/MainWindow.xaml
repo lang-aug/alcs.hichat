@@ -26,13 +26,13 @@
         <DockPanel>
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="Server:" />
-                <TextBox Text="{Binding ServerAddress}"/>
+                <TextBox Text="{Binding ServerAddress}" IsEnabled="{Binding IsNotConnected}"/>
             </DockPanel>
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
                 <Button DockPanel.Dock="Right" Width="50" Content="Connect" Command="{Binding TryConnectCommand}" />
-                <TextBox Text="{Binding Username}"/>
+                <TextBox IsEnabled="{Binding IsNotConnected}" Text="{Binding Username}"/>
             </DockPanel>
 
             <Label Background="LightGray" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
