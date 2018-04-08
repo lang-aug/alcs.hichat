@@ -31,7 +31,8 @@
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
-                <Button DockPanel.Dock="Right" Width="50" Content="Connect" Command="{Binding TryConnectCommand}" />
+                <Button DockPanel.Dock="Right" Width="50" Content="Toggle" Command="{Binding ToggleConnectCommand}" 
+                        IsEnabled="{Binding IsToggleAllowed}"/>
                 <TextBox IsEnabled="{Binding IsNotConnected}" Text="{Binding Username}"/>
             </DockPanel>
 

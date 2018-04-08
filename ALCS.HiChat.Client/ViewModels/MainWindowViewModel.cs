@@ -23,22 +23,34 @@ namespace ALCS.HiChat.Client.ViewModels
             StatusMessage = "Welcome to the HiChat application";
         }
 
-        #region TryConnect command
-        private ICommand tryConnectCommand;
-        public ICommand TryConnectCommand
+        #region ToggleConnect command
+        private ICommand toggleConnectCommand;
+        public ICommand ToggleConnectCommand
         {
             get
             {
-                if (tryConnectCommand == null)
+                if (toggleConnectCommand == null)
                 {
-                    tryConnectCommand = new RelayCommand((o) => TryConnect(o), 
-                    (o) => !IsConnected);
+                    toggleConnectCommand = new RelayCommand((o) => ToggleConnect(o),
+                        (o) => IsToggleAllowed);
                 }
-                return tryConnectCommand;
+                return toggleConnectCommand;
             }
         }
+        private void ToggleConnect(object o)
+        {
+            if (IsConnected)
+            {
+                Disconnect();
+            }
+            else
+            {
+                TryConnect();
+            }
+        }
+        #endregion
 
-        public void TryConnect(object o)
+        private void TryConnect()
         {
             if (IsConnected)
             {
@@ -54,6 +66,7 @@ namespace ALCS.HiChat.Client.ViewModels
 
             try
             {
+                IsToggleAllowed = false;
                 StatusMessage = "Connecting...";
                 var binding = new WSDualHttpBinding();
                 var endpoint = new EndpointAddress(ServerAddress);
@@ -79,11 +92,11 @@ namespace ALCS.HiChat.Client.ViewModels
             finally
             {
                 OnPropertyChanged("IsConnected");
-                OnPropertyChanged("IsNotConnected");           
+                OnPropertyChanged("IsNotConnected");
+                IsToggleAllowed = true;
             }
         }
-        #endregion
-
+        
         #region PublishMessage command
         private ICommand publishMessageCommand;
         public ICommand PublishMessageCommand
@@ -188,6 +201,20 @@ namespace ALCS.HiChat.Client.ViewModels
         }
 
         public string Username { get; set; }
+
+        private bool isToggleAllowed = true;
+        public bool IsToggleAllowed
+        {
+            get
+            {
+                return isToggleAllowed;
+            }
+            set
+            {
+                isToggleAllowed = value;
+                OnPropertyChanged("IsToggleAllowed");
+            }
+        }
         #endregion
 
         protected void OnPropertyChanged(string name)
@@ -197,6 +224,7 @@ namespace ALCS.HiChat.Client.ViewModels
 
         public void Disconnect()
         {
+            IsToggleAllowed = false;
             if (!IsConnected)
             {
                 return;
@@ -216,6 +244,7 @@ namespace ALCS.HiChat.Client.ViewModels
                 channel = null;
                 OnPropertyChanged("IsConnected");
                 OnPropertyChanged("IsNotConnected");
+                IsToggleAllowed = true;
             }
         }
     }
