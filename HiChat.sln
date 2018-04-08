@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server", "ALCS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client", "ALCS.HiChat.Client\ALCS.HiChat.Client.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.AutomatedClient", "ALCS.HiChat.AutomatedClient\ALCS.HiChat.AutomatedClient.csproj", "{A77AF229-8671-409E-8B71-C4D951D7624F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77AF229-8671-409E-8B71-C4D951D7624F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77AF229-8671-409E-8B71-C4D951D7624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77AF229-8671-409E-8B71-C4D951D7624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77AF229-8671-409E-8B71-C4D951D7624F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

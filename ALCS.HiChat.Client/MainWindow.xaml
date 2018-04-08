@@ -31,34 +31,21 @@
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
+                <Button DockPanel.Dock="Right" Width="50" Content="Connect" Command="{Binding TryConnectCommand}" />
                 <TextBox Text="{Binding Username}"/>
             </DockPanel>
 
-            <Button DockPanel.Dock="Top" Content="Connect" Command="{Binding TryConnectCommand}">
-                <!-- <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="TryConnect" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers> -->
-            </Button>
+            <Label Background="LightGray" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}" />
+                <TextBox Text="{Binding OutgoingMessage}" />
+            </DockPanel>
 
-<!--            <TextBox MinHeight="100" Text="{Binding IncomingMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/> -->
-            <ItemsControl DockPanel.Dock="Top" MinHeight="180" 
+            <ItemsControl DockPanel.Dock="Top" MinHeight="180"
                           ItemsSource="{Binding MessageBacklog}" 
                           ItemTemplate="{DynamicResource MessageDataTemplate}">
             </ItemsControl>
-            <Label Background="LightGray" DockPanel.Dock="Bottom" Content="{Binding StatusMessage}" />
-            <DockPanel DockPanel.Dock="Bottom">
-                <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}">
-<!--                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PublishMessage" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers> -->
-                </Button>
-                <TextBox Text="{Binding OutgoingMessage}" />
-            </DockPanel>
-            
+
         </DockPanel>
     </Grid>
 </Window>
