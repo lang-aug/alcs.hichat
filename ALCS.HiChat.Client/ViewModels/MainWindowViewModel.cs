@@ -40,7 +40,7 @@ namespace ALCS.HiChat.Client.ViewModels
         {
             if (IsConnected)
             {
-                await DisconnectAsync().ConfigureAwait(false);
+                await DisconnectAsync(true).ConfigureAwait(false);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace ALCS.HiChat.Client.ViewModels
         {
             if (IsConnected)
             {
-                await DisconnectAsync().ConfigureAwait(false);
+                await DisconnectAsync(true).ConfigureAwait(false);
             }
 
             if (string.IsNullOrEmpty(Username) ||
@@ -72,27 +72,29 @@ namespace ALCS.HiChat.Client.ViewModels
                 var channelFactory = new DuplexChannelFactory<IHiChatService>(instanceContext,
                     binding, endpoint);
                 channel = channelFactory.CreateChannel();
-                User user = new User { Name = Username };
-                bool hasConnected = await Task.Run(() => channel.Connect(user)).ConfigureAwait(false);
-                if (!hasConnected)
+                var task = Task.Run(() => channel.Connect(Username));
+                if (await Task.WhenAny(task, Task.Delay(15000)) != task)
+                {
+                    StatusMessage = "Connection timed out";
+                    channel = null;
+                    return;
+                }
+
+                if (task.Result == null)
                 {
                     StatusMessage = "Could not connect, server refused connection";
                     channel = null;
                 }
                 else
                 {
+                    ConnectedUser = task.Result;
                     StatusMessage = "Connection successful";
                 }
             }
             catch (Exception e)
             {
                 StatusMessage = $"Could not connect, exception: {e.Message}";
-                await DisconnectAsync().ConfigureAwait(false);
-            }
-            finally
-            {
-                OnPropertyChanged("IsConnected");
-                OnPropertyChanged("IsNotConnected");
+                await DisconnectAsync(false).ConfigureAwait(false);
             }
         }
         
@@ -127,12 +129,17 @@ namespace ALCS.HiChat.Client.ViewModels
             var message = new Message { Sender = user, Content = OutgoingMessage };
             try
             {
-                await Task.Run(() => channel.PublishMessage(message)).ConfigureAwait(false);
+                var task = Task.Run(() => channel.PublishMessage(message));
+                if (await Task.WhenAny(task, Task.Delay(5000)) != task)
+                {
+                    StatusMessage = "Sending message timed out";
+                    await DisconnectAsync(false).ConfigureAwait(false);
+                }
             }
             catch (Exception e)
             {
                 StatusMessage = $"Exception when publishing message: {e.Message}";
-                await DisconnectAsync().ConfigureAwait(false);
+                await DisconnectAsync(false).ConfigureAwait(false);
             }
             finally
             {
@@ -183,11 +190,26 @@ namespace ALCS.HiChat.Client.ViewModels
 
         public string ServerAddress { get; set; }
 
+        private User connectedUser;
+        private User ConnectedUser
+        {
+            get
+            {
+                return connectedUser;
+            }
+            set
+            {
+                connectedUser = value;
+                OnPropertyChanged("IsConnected");
+                OnPropertyChanged("IsNotConnected");
+            }
+        }
+
         public bool IsConnected
         {
             get
             {
-                return channel != null;
+                return ConnectedUser != null;
             }
         }
 
@@ -207,27 +229,29 @@ namespace ALCS.HiChat.Client.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public async Task DisconnectAsync()
+        public async Task DisconnectAsync(bool tryCleanDisconnect)
         {
             if (!IsConnected)
             {
                 return;
             }
-            var user = new User { Name = Username };
             try
             {
-                await Task.Run(() => channel.Disconnect(user)).ConfigureAwait(false);
+                if (tryCleanDisconnect)
+                {
+                    var task = Task.Run(() => channel.Disconnect(ConnectedUser));
+                    await Task.WhenAny(task, Task.Delay(5000));
+                }
                 StatusMessage = "Disconnected";
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 StatusMessage = $"Exception occurred when disconnecting: {e.Message}";   
             }
             finally
             {
                 channel = null;
-                OnPropertyChanged("IsConnected");
-                OnPropertyChanged("IsNotConnected");
+                ConnectedUser = null;
             }
         }
     }

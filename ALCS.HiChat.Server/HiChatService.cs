@@ -17,34 +17,34 @@ namespace ALCS.HiChat.Server
         private Dictionary<User, IHiChatServiceCallback> connectedClients =
             new Dictionary<User, IHiChatServiceCallback>();
 
-        public bool Connect(User newUser)
+        public User Connect(string username)
         {
-            if (newUser == null)
+            if (string.IsNullOrEmpty(username))
             {
-                return false;
+                return null;
             }
 
+            User newUser = new User { Name = username };
             lock (connectedClients)
             {
                 if (connectedClients.ContainsKey(newUser))
                 {
-                    Console.WriteLine("User with name {0} already exists, not connecting", newUser.Name);
-                    return false;
+                    Console.WriteLine("User with name {0} already exists, not connecting", username);
+                    return null;
                 }
 
                 IHiChatServiceCallback callback =
                     OperationContext.Current.GetCallbackChannel<IHiChatServiceCallback>();
                 if (callback == null)
                 {
-                    Console.WriteLine("Could not get callback channel for user {0}", newUser.Name);
-                    return false;
+                    Console.WriteLine("Could not get callback channel for user {0}", username);
+                    return null;
                 }
 
                 connectedClients.Add(newUser, callback);
-                Console.WriteLine("Connected user {0}", newUser.Name);
+                Console.WriteLine("Connected user {0}", username);
+                return newUser;
             }
-
-            return true;
         }
 
         public void Disconnect(User user)

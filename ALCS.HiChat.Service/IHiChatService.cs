@@ -12,7 +12,7 @@ namespace ALCS.HiChat.Service
     public interface IHiChatService
     {
         [OperationContract]
-        bool Connect(User newUser);
+        User Connect(string username);
 
         [OperationContract(IsOneWay = true)]
         void Disconnect(User user);
