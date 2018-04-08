@@ -72,9 +72,20 @@ namespace ALCS.HiChat.Server
 
         private void BroadcastMessage(Message message)
         {
+            if (message == null || message.Sender == null || String.IsNullOrEmpty(message.Sender.Name))
+            {
+                Console.WriteLine("Ignoring message without valid sender");
+                return;
+            }
+
             Console.WriteLine("From user {0} received message {1}", message.Sender.Name, message.Content);
             lock (connectedClients)
             {
+                if (!connectedClients.ContainsKey(message.Sender))
+                {
+                    Console.WriteLine("Ignoring message from non-connected user: {0}", message.Sender.Name);
+                }
+
                 List<User> invalidClients = new List<User>();
                 foreach (var item in connectedClients)
                 {
@@ -84,12 +95,11 @@ namespace ALCS.HiChat.Server
                     {
                         try
                         {
-                            Console.WriteLine("Sending message: {0} to user: {1}", message.Content, client.Name);
                             callback.RouteMessage(message);
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine("Exception: %s", e.Message);
+                            Console.WriteLine("Exception publishing to user {0}, {1}", client.Name, e.Message);
                             invalidClients.Add(client);
                         }
                     }
