@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ALCS.HiChat.Client
+namespace ALCS.HiChat.Client.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ALCS.HiChat.Client.Properties
+namespace ALCS.HiChat.Client.WPF.Properties
 {
 
 

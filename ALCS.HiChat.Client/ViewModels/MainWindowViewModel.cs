@@ -20,6 +20,7 @@ namespace ALCS.HiChat.Client.ViewModels
         public MainWindowViewModel()
         {
             MessageBacklog = new ObservableCollection<Message>();
+            StatusMessage = "Welcome to the HiChat application";
         }
 
         #region Commands
@@ -47,6 +48,7 @@ namespace ALCS.HiChat.Client.ViewModels
             if (string.IsNullOrEmpty(Username) ||
                 string.IsNullOrEmpty(ServerAddress))
             {
+                StatusMessage = "Could not connect, username or server address invalid";
                 return;
             }
 
@@ -62,12 +64,16 @@ namespace ALCS.HiChat.Client.ViewModels
                 bool hasConnected = channel.Connect(user);
                 if (!hasConnected)
                 {
+                    StatusMessage = "Could not connect, server refused connection";
                     channel = null;
+                    return;
                 }
+                StatusMessage = "Connection successful";
                 return;
             }
             catch (Exception e)
             {
+                StatusMessage = $"Could not connect, exception: {e.Message}";
                 Disconnect();
                 return;
             }
@@ -112,6 +118,7 @@ namespace ALCS.HiChat.Client.ViewModels
             }
             catch (Exception e)
             {
+                StatusMessage = $"Exception when publishing message: {e.Message}";
                 Disconnect();
             }
             finally
@@ -147,6 +154,21 @@ namespace ALCS.HiChat.Client.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private string statusMessage;
+
+        public string StatusMessage
+        {
+            get
+            {
+                return statusMessage;
+            }
+            set
+            {
+                statusMessage = value;
+                OnPropertyChanged("StatusMessage");
+            }
+        }
+
         public void Disconnect()
         {
             if (!IsConnected)
@@ -157,12 +179,16 @@ namespace ALCS.HiChat.Client.ViewModels
             try
             {
                 channel.Disconnect(user);
+                StatusMessage = "Disconnected";
             }
             catch(Exception e)
             {
-                
+                StatusMessage = $"Exception occurred when disconnecting: {e.Message}";   
             }
-            channel = null;
+            finally
+            {
+                channel = null;
+            }
         }
 
         public string ServerAddress { get; set; }

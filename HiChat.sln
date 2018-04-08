@@ -7,11 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Models", "ALCS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Service", "ALCS.HiChat.Service\ALCS.HiChat.Service.csproj", "{F3D9A7FA-9F6E-4674-BDF3-FCA82A83CCA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server", "ALCS.HiChat.Server.Standalone\ALCS.HiChat.Server.csproj", "{C056096B-3046-4ADD-86BF-B44C00F23CD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Server", "ALCS.HiChat.Server\ALCS.HiChat.Server.csproj", "{C056096B-3046-4ADD-86BF-B44C00F23CD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client.Console", "ALCS.HiChat.Client.Test\ALCS.HiChat.Client.Console.csproj", "{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client", "ALCS.HiChat.Client.WPF\ALCS.HiChat.Client.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALCS.HiChat.Client", "ALCS.HiChat.Client\ALCS.HiChat.Client.csproj", "{A1F5DCAE-624F-4463-A899-10F70E251031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{C056096B-3046-4ADD-86BF-B44C00F23CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C056096B-3046-4ADD-86BF-B44C00F23CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C056096B-3046-4ADD-86BF-B44C00F23CD3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3F0796A-D0F2-42CE-AEF1-07C58F80187F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F5DCAE-624F-4463-A899-10F70E251031}.Release|Any CPU.ActiveCfg = Release|Any CPU
