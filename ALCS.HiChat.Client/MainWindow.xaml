@@ -31,7 +31,8 @@
 
             <DockPanel DockPanel.Dock="Top">
                 <Label Content="User name:" />
-                <Button DockPanel.Dock="Right" Width="70"  
+                <Button DockPanel.Dock="Right" 
+                        Width="70"  
                         Command="{Binding ToggleConnectCommand}">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -55,10 +56,12 @@
                 <TextBox IsEnabled="{Binding IsConnected}" Text="{Binding OutgoingMessage}" />
             </DockPanel>
 
-            <ItemsControl DockPanel.Dock="Top" MinHeight="180"
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl DockPanel.Dock="Top" MinHeight="180"
                           ItemsSource="{Binding MessageBacklog}" 
                           ItemTemplate="{DynamicResource MessageDataTemplate}">
-            </ItemsControl>
+                </ItemsControl>
+            </ScrollViewer>
 
         </DockPanel>
     </Grid>
