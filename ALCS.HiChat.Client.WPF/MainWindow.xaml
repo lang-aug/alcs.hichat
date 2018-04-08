@@ -10,7 +10,13 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <DataTemplate x:Key="MessageDataTemplate">
-            <TextBlock Text="{Binding Content}"></TextBlock>
+            <TextBlock>
+                <TextBlock.Inlines>
+                    <Run FontWeight="Bold" Text="{Binding Sender.Name}" />
+                    <Run FontWeight="Bold" Text=" : " />
+                    <Run Text="{Binding Content}" />
+                </TextBlock.Inlines>
+            </TextBlock>
         </DataTemplate>
     </Window.Resources>
     <Grid xmlns:vm="clr-namespace:ALCS.HiChat.Client.ViewModels">

@@ -30,7 +30,8 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 if (tryConnectCommand == null)
                 {
-                    tryConnectCommand = new RelayCommand((o) => TryConnect(o));
+                    tryConnectCommand = new RelayCommand((o) => TryConnect(o), 
+                    (o) => !IsConnected);
                 }
                 return tryConnectCommand;
             }
@@ -84,7 +85,8 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 if (publishMessageCommand == null)
                 {
-                    publishMessageCommand = new RelayCommand((o) => PublishMessage());
+                    publishMessageCommand = new RelayCommand((o) => PublishMessage(), 
+                    (o) => IsConnected);
                 }
                 return publishMessageCommand;
             }
@@ -125,9 +127,19 @@ namespace ALCS.HiChat.Client.ViewModels
 
         public ObservableCollection<Message> MessageBacklog { get; set; }
 
+        private string outgoingMessage;
+
         public string OutgoingMessage 
         {
-            get; set;
+            get
+            {
+                return outgoingMessage;
+            }
+            set
+            {
+                outgoingMessage = value;
+                OnPropertyChanged("OutgoingMessage");
+            }
         }
         
         protected void OnPropertyChanged(string name)
