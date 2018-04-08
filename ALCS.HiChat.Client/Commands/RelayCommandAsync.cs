@@ -12,6 +12,22 @@ namespace ALCS.HiChat.Client.Commands
         private readonly Func<Task> execute;
         private readonly Predicate<object> canExecute;
         private bool isExecuting;
+        private bool IsExecuting
+        {
+            get
+            {
+                return isExecuting;
+            }
+            set
+            {
+                bool couldExecute = CanExecute(null);
+                isExecuting = value;
+                if (CanExecute(null) != couldExecute)
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }
+        }
 
         public RelayCommandAsync(Func<Task> execute) : this(execute, null) { }
 
@@ -23,8 +39,8 @@ namespace ALCS.HiChat.Client.Commands
 
         public bool CanExecute(object parameter)
         {
-            if (!isExecuting && canExecute == null) return true;
-            return (!isExecuting && canExecute(parameter));
+            if (!IsExecuting && canExecute == null) return true;
+            return (!IsExecuting && canExecute(parameter));
         }
 
         public event EventHandler CanExecuteChanged
@@ -35,9 +51,9 @@ namespace ALCS.HiChat.Client.Commands
 
         public async void Execute(object parameter)
         {
-            isExecuting = true;
+            IsExecuting = true;
             try { await execute(); }
-            finally { isExecuting = false; }
+            finally { IsExecuting = false; }
         }
     }
 }

@@ -20,7 +20,8 @@ namespace ALCS.HiChat.Client.ViewModels
         public MainWindowViewModel()
         {
             MessageBacklog = new ObservableCollection<Message>();
-            StatusMessage = "Welcome to the HiChat application";
+            StatusMessage = "Welcome to HiChat!";
+            ServerAddress = "http://localhost:8733";
         }
 
         #region ToggleConnect command
@@ -67,7 +68,7 @@ namespace ALCS.HiChat.Client.ViewModels
             {
                 StatusMessage = "Connecting...";
                 var binding = new WSDualHttpBinding();
-                var endpoint = new EndpointAddress(ServerAddress);
+                var endpoint = new EndpointAddress(ServerAddress + "/Design_Time_Addresses/ALCS/HiChatService/");
                 var instanceContext = new InstanceContext(this);
                 var channelFactory = new DuplexChannelFactory<IHiChatService>(instanceContext,
                     binding, endpoint);
