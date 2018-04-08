@@ -23,22 +23,22 @@
                 <TextBox Text="{Binding Username}"/>
             </DockPanel>
 
-            <Button Content="Connect">
-                <i:Interaction.Triggers>
+            <Button Content="Connect" Command="{Binding TryConnectCommand}">
+                <!-- <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="TryConnect" />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers> -->
             </Button>
 
             <TextBox MinHeight="100" Text="{Binding IncomingMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <DockPanel>
-                <Button Width="50" DockPanel.Dock="Right" Content="Send">
-                    <i:Interaction.Triggers>
+                <Button Width="50" DockPanel.Dock="Right" Content="Send" Command="{Binding PublishMessageCommand}">
+<!--                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <ei:CallMethodAction TargetObject="{Binding}" MethodName="PublishMessage" />
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    </i:Interaction.Triggers> -->
                 </Button>
                 <TextBox Text="{Binding OutgoingMessage}" />
             </DockPanel>

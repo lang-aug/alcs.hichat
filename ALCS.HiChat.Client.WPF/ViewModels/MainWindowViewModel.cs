@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using System.ComponentModel;
+using System.Windows.Input;
 using ALCS.HiChat.Models;
 using ALCS.HiChat.Service;
-using System.ComponentModel;
+using ALCS.HiChat.Client.Commands;
 
 namespace ALCS.HiChat.Client.ViewModels
 {
@@ -15,60 +17,24 @@ namespace ALCS.HiChat.Client.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindowViewModel()
-        {      
-        }
-        
-        private IHiChatService channel;
-
-        private string incomingMessage;
-
-        public string OutgoingMessage 
         {
-            get; set;
         }
 
-        public string IncomingMessage
+        #region Commands
+        private ICommand tryConnectCommand;
+        public ICommand TryConnectCommand
         {
             get
             {
-                return incomingMessage;
-            }
-            private set
-            {
-                incomingMessage = value;
-                OnPropertyChanged("IncomingMessage");
+                if (tryConnectCommand == null)
+                {
+                    tryConnectCommand = new RelayCommand((o) => TryConnect(o));
+                }
+                return tryConnectCommand;
             }
         }
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public void RouteMessage(Message message)
-        {
-            IncomingMessage = message.Content;   
-        }
-
-        public void Disconnect()
-        {
-            if (!IsConnected)
-            {
-                return;
-            }
-            var user = new User { Name = Username };
-            try
-            {
-                channel.Disconnect(user);
-            }
-            catch(Exception e)
-            {
-                
-            }
-            channel = null;
-        }
-
-        public void TryConnect()
+        public void TryConnect(object o)
         {
             if (IsConnected)
             {
@@ -104,6 +70,100 @@ namespace ALCS.HiChat.Client.ViewModels
             }
         }
 
+        public void RouteMessage(Message message)
+        {
+            IncomingMessage = message.Content;
+        }
+
+        private ICommand publishMessageCommand;
+        public ICommand PublishMessageCommand
+        {
+            get
+            {
+                if (publishMessageCommand == null)
+                {
+                    publishMessageCommand = new RelayCommand((o) => PublishMessage());
+                }
+                return publishMessageCommand;
+            }
+        }
+
+        public void PublishMessage()
+        {
+            if (!IsConnected)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(OutgoingMessage))
+            {
+                return;
+            }
+
+            var user = new User { Name = Username };
+            var message = new Message { Sender = user, Content = OutgoingMessage };
+            try
+            {
+                channel.PublishMessage(message);
+            }
+            catch (Exception e)
+            {
+                Disconnect();
+            }
+            finally
+            {
+                OutgoingMessage = string.Empty;
+            }
+        }
+        #endregion
+
+
+
+        private IHiChatService channel;
+
+        private string incomingMessage;
+
+        public string OutgoingMessage 
+        {
+            get; set;
+        }
+
+        public string IncomingMessage
+        {
+            get
+            {
+                return incomingMessage;
+            }
+            private set
+            {
+                incomingMessage = value;
+                OnPropertyChanged("IncomingMessage");
+            }
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void Disconnect()
+        {
+            if (!IsConnected)
+            {
+                return;
+            }
+            var user = new User { Name = Username };
+            try
+            {
+                channel.Disconnect(user);
+            }
+            catch(Exception e)
+            {
+                
+            }
+            channel = null;
+        }
+
         public string ServerAddress { get; set; }
 
         public bool IsConnected
@@ -123,33 +183,5 @@ namespace ALCS.HiChat.Client.ViewModels
         }
 
         public string Username { get; set; }
-
-        public void PublishMessage()
-        {
-            if (!IsConnected) 
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(OutgoingMessage))
-            {
-                return;
-            }
-
-            var user = new User { Name = Username };
-            var message = new Message { Sender = user, Content = OutgoingMessage };
-            try
-            {
-                channel.PublishMessage(message);
-            }
-            catch(Exception e)
-            {
-                Disconnect();
-            }
-            finally
-            {
-                OutgoingMessage = string.Empty;
-            }
-        }
     }
 }
