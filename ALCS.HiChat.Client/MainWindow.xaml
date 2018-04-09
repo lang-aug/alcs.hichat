@@ -58,7 +58,7 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl DockPanel.Dock="Top" MinHeight="180"
-                          ItemsSource="{Binding MessageBacklog}" 
+                          ItemsSource="{Binding MessageBacklog}"
                           ItemTemplate="{DynamicResource MessageDataTemplate}">
                 </ItemsControl>
             </ScrollViewer>
